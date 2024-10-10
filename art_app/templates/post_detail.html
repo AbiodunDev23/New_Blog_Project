@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+        {% for message in messages %}
+                <div class="messages">
+                    <p>{{ message }}</p>
+                </div>
+        {% endfor %}
+        <div class="container" id="contains">
+            <div class="shape">
+                <img src="{{ object.author.profile.image.url }}" alt="">
+            </div>
+            <h2>{{object.title}}</h2>
+            <h3> <a href="{% url 'user-post' object.author.username %}">By: {{object.author}}</a></h3>
+            <p>On: {{object.date_posted|date:"F d, Y"}}</p>
+            <p>Post-Title: {{object.content}}</p>
+            <div class="deta">
+                {% if object.author == user %}
+                    <a href="{% url 'post-update' object.id %}">Update_Post</a>
+                    <a href="{% url 'post-delete' object.id %}">Delete_Post</a>
+                    <a href="{% url 'post-delete' object.id %}">Reply_Post</a>
+
+                {% endif %}
+            </div>
+        </div>
+        <div class="comments-box">
+                <h2 style="color:#ff579f">Comments</h2>
+                <div class="comment-container">
+                    {% for comment in comments %}
+                        <div class="comment">
+                            <main>
+                                <p>{{comment.content}}</p>
+                                <p>By:<a href="{% url 'user-post' comment.author.username %}">{{comment.author}}</a> |On {{ comment.date_posted }}</p>
+                            </main>
+                            <aside>
+                                <a href="{% url 'comment-update' comment.id %}">Update_Comment</a>
+                                <a href="{% url 'comment-delete' comment.id %}">Delete_Comment</a>
+                                {% if post.author == user %}
+                                    <a href="{% url 'comment-delete' comment.id %}">Reply_Comment</a>
+                                {% endif%}
+                            </aside>  
+                        </div>
+                    {% endfor %}
+                </div>
+                <form method="POST" class="detail_form">
+                    {% csrf_token %}
+                        {{ form}}
+                        <button type="submit">Post Comment</submit>
+                </form>
+        </div>
+{% endblock %}

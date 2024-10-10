@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    {% for message in messages %}
+            <div class="messages">
+                <p>{{ message }}</p>
+            </div>
+    {% endfor %}
+    <div class="profs">
+        <div class="child">
+            <div class="child1" id="childs">
+                <img src="{{user.profile.image.url}}">
+            </div>
+            <div class="child1" id="child2">
+                <p>Username: <span>{{user.username}}</span></p>
+                <p>Email: <span>{{user.email}}</span></p>
+
+            </div>
+            <div class="child1" id="child3">
+                <form method="POST" enctype="multipart/form-data" id="profform">
+                    {% csrf_token %}
+                        {{ u_form }}
+                        {{ p_form }}
+
+                    <button type="submit">Update</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

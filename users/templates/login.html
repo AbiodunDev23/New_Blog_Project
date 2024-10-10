@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% for message in messages %}
+            <div class="messages">
+                <p>{{ message }}</p>
+            </div>
+    {% endfor %}
+    <form method="POST" class="logform">
+        <main>
+            <h2>LOGIN_FORM</h2>
+                {% csrf_token %}
+                    {{form}}
+            <div class="but" id="buts">
+                <button type="submit">Login</button>
+                <p>Do you want to create an account kindly <a href="{% url 'register'%}">Register</a> to keep using the site confortably</p>
+            </div>
+        </main>
+    </form>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if results %}
+        <div class="res">
+            <h2>List of result Searched</h2>
+            {% for result in results %}
+                    <a href="{% url 'post-detail' result.id %}">{{result.title}} by {{result.author}}</a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No results found</p>
+    {% endif %}
+{% endblock %}  

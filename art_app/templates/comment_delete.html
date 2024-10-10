@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form method="POST" class="blogform" id="delete_form">
+        <main>
+            <h2>Delete_Form</h2>
+                {% csrf_token %}
+                    <p>Are you sure you want to delete Your Comment ({{ comment.content }}) posted on {{comment.post}}</p>
+            <div class="but">
+                <button type="submit">Yes, Delete_Comment</button>
+                <a href="{% url 'index' %}">Cancel</a>
+            </div>
+        </main>
+    </form>
+{% endblock %}
